@@ -1,0 +1,30 @@
+{
+  "name": "emanual-interview",
+  "version": "1.0.0",
+  "description": "EManual integer on node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "emanual-interview": "bin/emanual-interview.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EManual/node-emanual-interview.git"
+  },
+  "keywords": [
+    "EManual",
+    "interview"
+  ],
+  "author": "Jayin Ton",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/EManual/node-emanual-interview/issues"
+  },
+  "homepage": "https://github.com/EManual/node-emanual-interview#readme",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "glob": "^7.0.0"
+  }
+}
