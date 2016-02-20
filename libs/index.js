@@ -9,8 +9,7 @@ function parser_setting (lines) {
   for (let i = 0;i < lines.length; i++) {
     if (lines[i].startsWith('-')) {
       let tmp = lines[i].substring(lines[i].indexOf('-') + 1, lines[i].length)
-      setting[tmp.split(':')[0].trim()] = tmp.split(':')[1].trim()
-
+      setting[tmp.split(':')[0].trim().toLowerCase()] = tmp.split(':')[1].trim().toLowerCase()
     }
   }
   return setting
@@ -112,7 +111,7 @@ function parser (content) {
   question.description = descriptionBody.description
   question.options = descriptionBody.options
   question.answer = parser_answer(subArray(lines, end + 1, lines.length))
-  console.log(question)
+  // console.log(question)
   return question
 }
 
