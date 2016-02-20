@@ -19,9 +19,42 @@ function parser_setting (lines) {
  * 解析description部分
  * @param {Array} lines lines of the content
  */
-function parser_description (lines) {
-  return lines.join('\n').trim()
+function parser_descriptionBody (lines) {
+  for (let index = 0;index < lines.length;index++) {
+    if (lines[index].startsWith('A、')) {
+      return {
+        description: subArray(lines, 0, index - 1).join('\n'),
+        options: parse_option(subArray(lines, index, lines.length))
+      }
+    }
+  }
+  return {
+    description: lines.join('\n').trim(),
+    options: []
+  }
 }
+
+function parse_option (lines) {
+  let options = []
+  let tmpOptionLines = []
+  for (let index = 0; index < lines.length;index++) {
+    if (/\w、/.test(lines[index])) {
+      if ('' !== tmpOptionLines.join('\n').trim()) {
+        options.push(tmpOptionLines.join('\n').trim())
+        tmpOptionLines = []
+      }
+    }
+    tmpOptionLines.push(lines[index])
+  }
+  if ('' !== tmpOptionLines.join('\n').trim()) {
+    options.push(tmpOptionLines.join('\n').trim())
+    tmpOptionLines = []
+  }
+  // console.log('options')
+  // console.log(options)
+  return options
+}
+
 /**
  * 解析答案
  * @param {Array} lines lines of the content
@@ -75,9 +108,11 @@ function parser (content) {
   while(!lines[end].startsWith('---')){
     end++
   }
-  question.description = parser_description(subArray(lines, start, end - 1))
+  let descriptionBody = parser_descriptionBody(subArray(lines, start, end - 1)) 
+  question.description = descriptionBody.description
+  question.options = descriptionBody.options
   question.answer = parser_answer(subArray(lines, end + 1, lines.length))
-
+  console.log(question)
   return question
 }
 
