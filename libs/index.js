@@ -8,8 +8,10 @@ function parser_setting (lines) {
   var setting = {}
   for (let i = 0;i < lines.length; i++) {
     if (lines[i].startsWith('-')) {
-      let tmp = lines[i].substring(lines[i].indexOf('-') + 1, lines[i].length)
-      setting[tmp.split(':')[0].trim().toLowerCase()] = tmp.split(':')[1].trim().toLowerCase()
+      let tmp = lines[i].substring(1, lines[i].length)
+      let key = tmp.substring(0, tmp.indexOf(':'))
+      let value = tmp.replace(tmp.substring(0, tmp.indexOf(':')+1), '')
+      setting[key.trim().toLowerCase()] = value.trim().toLowerCase()
     }
   }
   return setting
