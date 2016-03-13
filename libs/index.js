@@ -54,14 +54,14 @@ function parse_option(lines) {
   for (let index = 0; index < lines.length; index++) {
     if (/\w、/.test(lines[index])) {
       if ('' !== tmpOptionLines.join('\n').trim()) {
-        options.push(tmpOptionLines.join('\n').trim())
+        options.push(kramed(tmpOptionLines.join('\n').trim()))
         tmpOptionLines = []
       }
     }
     tmpOptionLines.push(lines[index])
   }
   if ('' !== tmpOptionLines.join('\n').trim()) {
-    options.push(tmpOptionLines.join('\n').trim())
+    options.push(kramed(tmpOptionLines.join('\n').trim()))
     tmpOptionLines = []
   }
   // console.log('options')
