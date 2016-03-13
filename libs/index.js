@@ -1,5 +1,18 @@
 'use strict'
 
+const kramed = require('kramed')
+
+kramed.setOptions({
+        renderer: new kramed.Renderer(),
+        gfm: true,
+        tables: true,
+        breaks: false,
+        pedantic: false,
+        sanitize: true,
+        smartLists: true,
+        smartypants: true
+});
+
 /**
  * 解析key-value头信息
  * @param {Array} lines lines of the content
@@ -110,9 +123,9 @@ function parser(content) {
     end++
   }
   let descriptionBody = parser_descriptionBody(subArray(lines, start, end - 1))
-  question.description = descriptionBody.description
+  question.description = kramed(descriptionBody.description)
   question.options = descriptionBody.options
-  question.answer = parser_answer(subArray(lines, end + 1, lines.length))
+  question.answer = kramed(parser_answer(subArray(lines, end + 1, lines.length)))
   // console.log(question)
   return question
 }
